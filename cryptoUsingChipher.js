@@ -11,12 +11,12 @@ const server = http.createServer((req, res) => {
         const parsed = JSON.parse(data);
         let { username, password } = parsed;
         function encrypt(text) {
-            const chipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-            let encrypted = chipher.update('chipher', 'utf-8', 'hex');
-            encrypted += chipher.final('hex')
+            const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
+            let encrypted = cipher.update('cipher', 'utf-8', 'hex');
+            encrypted += cipher.final('hex')
             return encrypted;
         }
-        const algorithm = 'aes-256-cbc';      //algoritham for encrypt
+        const algorithm = 'aes-256-cbc';      //algorithm for encrypt
         const key = crypto.randomBytes(32);   //key for encrypt
         const iv = crypto.randomBytes(16);    //iv for encrypt
         let encrypted = encrypt(password);    //call function encrypt 
@@ -26,7 +26,7 @@ const server = http.createServer((req, res) => {
         let stringify = JSON.stringify(oReadData); 
         fs.writeFile('./Crypto/database.json', stringify, function (err) {
             if (err) console.log(err);
-            console.log('seved');
+            console.log('saved');
         });
         return res.end(stringify);
     });
